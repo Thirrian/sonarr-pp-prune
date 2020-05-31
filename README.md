@@ -44,7 +44,7 @@ Repeat steps 3-5 for every group of series that require a different number of fi
 5/31/2020 1:07:54 PM - Standard - pruning The Simpsons
 5/31/2020 1:07:54 PM - Standard - files to keep : 10
 5/31/2020 1:07:54 PM - Standard - files on disk : 11
-5/31/2020 1:07:54 PM - Standard - pruning 7 files...
+5/31/2020 1:07:54 PM - Standard - pruning 1 file(s)...
 5/31/2020 1:07:55 PM - Standard - season  25, episode 9:
 5/31/2020 1:07:55 PM - Standard - -> file deleted
 5/31/2020 1:07:55 PM - Standard - -> episode unmonitored
