@@ -21,7 +21,7 @@ Secondly, set the unmonitor option to true or false. This will make an extra api
 unmonitor=true
 ```
 
-3. Create a pp-prune-x.sh script which points to `./pp-prune-main.sh <x>` where <x> is the number of files you want to keep. Example:
+3. Create a pp-prune-x.sh script which points to `./pp-prune-main.sh <x>` where x is the number of files you want to keep. Example:
 ```bash
 #!/bin/bash
 /bin/bash /path/to/prune.sh 10
