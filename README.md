@@ -32,7 +32,7 @@ unmonitor=true
   - On Import: enable
   - DISABLE all other events
   - Tags: enter the same tag you used for your series, e.g. “prune10”
-  - Browse to the script you created in step 2, e.g. pp-prune-10.sh. Do NOT select the pp-prune-main.sh script.
+  - Browse to the script you created in step 3, e.g. pp-prune-10.sh. Do NOT select the pp-prune-main.sh script.
   
 Repeat steps 3-5 for every group of series that require a different number of files to keep.
 
@@ -56,3 +56,4 @@ Repeat steps 3-5 for every group of series that require a different number of fi
 Not necessarily by me. Just things I'd like to be better.
 - Turn the unmonitor option into a parameter, so it can be enabled/disabled for each prune group as required.
 - Clean up fugly code.
+- Verify if a tag is used? It will be a matter of time before someone unleashes this on their entire library because they didn't specify a tag. Idea: check if series is tagged with `prunex`. If going this route, might as well parse out the number from the tag so the script becomes generic. How to handle unmonitor flag then?
