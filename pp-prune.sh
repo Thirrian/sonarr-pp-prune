@@ -64,7 +64,7 @@ prune=$((filecount-$1))
 if [[ $prune -gt 0 ]];
 then
 
-	echo "pruning $prune files..."
+	echo "pruning $prune file(s)..."
 
 	count=1
 	
