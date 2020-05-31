@@ -36,6 +36,21 @@ unmonitor=true
   
 Repeat steps 3-5 for every group of series that require a different number of files to keep.
 
+## Sample script output (sonarr debug log)
+
+```
+20-5-31 15:08:01.9|Debug|CustomScript|Executed external script: /config/postprocessing/pp-prune_10.sh - Status: 0
+20-5-31 15:08:01.9|Debug|CustomScript|Script Output: 
+5/31/2020 1:07:54 PM - Standard - pruning The Simpsons
+5/31/2020 1:07:54 PM - Standard - files to keep : 10
+5/31/2020 1:07:54 PM - Standard - files on disk : 11
+5/31/2020 1:07:54 PM - Standard - pruning 7 files...
+5/31/2020 1:07:55 PM - Standard - season  25, episode 9:
+5/31/2020 1:07:55 PM - Standard - -> file deleted
+5/31/2020 1:07:55 PM - Standard - -> episode unmonitored
+5/31/2020 1:08:01 PM - Standard - 1 file(s) pruned.
+```
+
 ## Todo
 
 Not necessarily by me. Just things I'd like to be better.
