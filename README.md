@@ -6,7 +6,7 @@ Highly untested, use at your own risk.
 
 1. Save pp-prune.sh to a directory you can access from sonarr
 
-2. Edit pp-prune.sh to configure it.
+2. Edit pp-prune-main.sh to configure it.
 
 The first section are your sonarr details and should be straightforward:
 ```bash
@@ -21,7 +21,7 @@ Secondly, set the unmonitor option to true or false. This will make an extra api
 unmonitor=true
 ```
 
-3. Create a pp-prune-x.sh script which points to `./pp-prune.sh <x>` where <x> is the number of files you want to keep. Example:
+3. Create a pp-prune-x.sh script which points to `./pp-prune-main.sh <x>` where <x> is the number of files you want to keep. Example:
 ```bash
 #!/bin/bash
 /bin/bash /path/to/prune.sh 10
@@ -32,7 +32,7 @@ unmonitor=true
   - On Import: enable
   - DISABLE all other events
   - Tags: enter the same tag you used for your series, e.g. “prune10”
-  - Browse to the script you created in step 2, e.g. pp-prune-10.sh. Do NOT select the main pp-prune.sh script.
+  - Browse to the script you created in step 2, e.g. pp-prune-10.sh. Do NOT select the pp-prune-main.sh script.
   
 Repeat steps 3-5 for every group of series that require a different number of files to keep.
 
