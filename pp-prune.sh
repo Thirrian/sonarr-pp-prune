@@ -65,9 +65,9 @@ main() {
 	# get number of files to keep, -1 in case of multiple prune tags assigned to series
 	get_files_to_keep
 	
-	# if more than one prune tag was associated with the series, exit here	
+	# if none or more than one prune tag was associated with the series, exit here	
 	if [[ $files_to_keep -eq -1 ]]; then
-		echo "more than one prune tag is associated with this series" | tee -a $log
+		echo "either none, or more than one prune tag is associated with this series" | tee -a $log
 		exit
 	fi
 	
