@@ -23,7 +23,7 @@ debuglog="/dev/null"
 
 if [[ "${sonarr_eventtype}" == "Test" ]];
 then
-
+	
 	echo "test event fired succesfully." | tee -a $log
 	exit 0
 	
@@ -32,7 +32,7 @@ fi
 
 if [[ "${sonarr_eventtype}" != "Download" && "${sonarr_isupgrade}" != "False" ]];
 then
-
+	
 	echo "this script only works for the 'On Import' event in Sonarr by design" | tee -a $log
 	exit 0
 	
@@ -40,6 +40,8 @@ fi
 
 
 main() {
+	
+	echo "$FUNCNAME start" >>$debuglog
 	
 	echo "running prune for ${sonarr_series_title}" | tee -a $log
 	
@@ -103,10 +105,14 @@ main() {
 	
 	echo "prune complete" | tee -a $log
 	
+	echo "$FUNCNAME end" >>$debuglog
+
 }
 
 
 delete_files() {
+	
+	echo "$FUNCNAME start" >>$debuglog
 	
 	# list of file ids
 	file_ids=$(echo $json_episodes | jq -r '.[] | select( .hasFile ) | .episodeFileId')
@@ -128,11 +134,15 @@ delete_files() {
 		fi
 		
 	done
-		
+	
+	echo "$FUNCNAME end" >>$debuglog
+	
 }
 
 
 unmonitor_episodes() {
+	
+	echo "$FUNCNAME start" >>$debuglog
 	
 	# list of episode ids
 	episode_ids=$(echo $json_episodes | jq -r '.[] | select( .hasFile ) | .id')
@@ -154,19 +164,27 @@ unmonitor_episodes() {
 		fi
 	
 	done
-		
+	
+	echo "$FUNCNAME end" >>$debuglog
+	
 }
 
 
 delete_file() {
 	
+	echo "$FUNCNAME start" >>$debuglog
+	
 	# api call to delete episode file
 	curl -s -H "X-Api-Key: $api" -X DELETE $proto://$host:$ip$urlbase/api/episodefile/$file_id 1>>$debuglog 2>&1
+	
+	echo "$FUNCNAME end" >>$debuglog
 	
 }
 
 
 unmonitor_episode() {
+	
+	echo "$FUNCNAME start" >>$debuglog
 	
 	# get episode json
 	episode=$(curl -s -H "X-Api-Key: $api" $proto://$host:$ip$urlbase/api/episode/$episode_id)
@@ -177,10 +195,14 @@ unmonitor_episode() {
 	# api call to submit modified episode to disable monitoring
 	curl -s -H "X-Api-Key: $api" -H "Content-Type: application/json" -X PUT -d "$episode" $proto://$host:$ip$urlbase/api/episode 1>>$debuglog 2>&1
 	
+	echo "$FUNCNAME end" >>$debuglog
+	
 }
 
 
 get_prune_tags() {
+	
+	echo "$FUNCNAME start" >>$debuglog
 	
 	# get all sonarr tags, filter out prune-* tags and fill array
 	for tag in $(echo $json_sonarr_tags);
@@ -201,10 +223,14 @@ get_prune_tags() {
 		esac
 	done
 	
+	echo "$FUNCNAME end" >>$debuglog
+	
 }
 
 
 get_unmonitor_tag_id() {
+	
+	echo "$FUNCNAME start" >>$debuglog
 	
 	prune_unmonitor_tagid=-1
 	for tag in $(echo $json_sonarr_tags);
@@ -220,10 +246,14 @@ get_unmonitor_tag_id() {
 		fi
 	done
 	
+	echo "$FUNCNAME end" >>$debuglog
+	
 }
 
 
 get_files_to_keep() {
+	
+	echo "$FUNCNAME start" >>$debuglog
 	
 	# loop over all tags for the series
 	for series_tag_id in $(echo $json_series | jq -r '.tags | .[]');
@@ -245,6 +275,8 @@ get_files_to_keep() {
 
 	done
 	
+	echo "$FUNCNAME start" >>$debuglog
+	
 	# more than one prune tag is assigned to the series, can't find number of files to keep
 	if [[ $prune_tag_count != 1 ]]; then
 	
@@ -252,10 +284,14 @@ get_files_to_keep() {
 	
 	fi
 	
+	echo "$FUNCNAME end" >>$debuglog
+	
 }
 
 
 get_monitored() {
+	
+	echo "$FUNCNAME start" >>$debuglog
 	
 	monitored=true
 	
@@ -279,6 +315,8 @@ get_monitored() {
 		done
 	
 	fi
+	
+	echo "$FUNCNAME end" >>$debuglog
 	
 }
 
