@@ -35,7 +35,7 @@ then
 
 	echo "this script only works for the 'On Import' event in Sonarr by design" | tee -a $log
 	echo "disable all notifications other than 'On Import' in Sonarr" | tee -a $log
-	#exit 1
+	exit 0
 	
 fi
 
@@ -59,7 +59,7 @@ main() {
 	# if no prune tags exist in sonarr, exit here
 	if [[ ${#prune_tags[@]} -eq 0 ]]; then
 		echo "no prune tags found, exiting" | tee -a $log
-		exit
+		exit 0
 	fi
 	
 	# get number of files to keep, -1 in case of multiple prune tags assigned to series
@@ -68,7 +68,7 @@ main() {
 	# if none or more than one prune tag was associated with the series, exit here	
 	if [[ $files_to_keep -eq -1 ]]; then
 		echo "either none, or more than one prune tag is associated with this series" | tee -a $log
-		exit
+		exit 0
 	fi
 	
 	# get monitored flag
@@ -86,7 +86,7 @@ main() {
 	# if no files need to be deleted, exit here
 	if [[ $files_to_prune -lt 1 ]]; then
 		echo "prune not required" | tee -a $log
-		exit
+		exit 0
 	fi
 	
 	# get episodes with a file for this series
