@@ -34,7 +34,6 @@ if [[ "${sonarr_eventtype}" != "Download" && "${sonarr_isupgrade}" != "False" ]]
 then
 
 	echo "this script only works for the 'On Import' event in Sonarr by design" | tee -a $log
-	echo "disable all notifications other than 'On Import' in Sonarr" | tee -a $log
 	exit 0
 	
 fi
@@ -91,8 +90,6 @@ main() {
 	
 	# get episodes with a file for this series
 	json_episodes=$(curl -s -H "X-Api-Key: $api" $proto://$host:$ip$urlbase/api/episode?seriesId=${sonarr_series_id})
-	
-	# echo "$json_episodes_with_file"
 	
 	echo "pruning $files_to_prune files..." | tee -a $log
 	
@@ -164,7 +161,7 @@ unmonitor_episodes() {
 delete_file() {
 	
 	# api call to delete episode file
-	curl -s -H "X-Api-Key: $api" -X DELETE $proto://$host:$ip$urlbase/api/episodefile/$file_id 1>/dev/null 2>&1
+	curl -s -H "X-Api-Key: $api" -X DELETE $proto://$host:$ip$urlbase/api/episodefile/$file_id 1>>$debuglog 2>&1
 	
 }
 
@@ -178,7 +175,7 @@ unmonitor_episode() {
 	episode=$(echo $episode | jq '.monitored = false')
 	
 	# api call to submit modified episode to disable monitoring
-	curl -s -H "X-Api-Key: $api" -H "Content-Type: application/json" -X PUT -d "$episode" $proto://$host:$ip$urlbase/api/episode 1>/dev/null 2>&1
+	curl -s -H "X-Api-Key: $api" -H "Content-Type: application/json" -X PUT -d "$episode" $proto://$host:$ip$urlbase/api/episode 1>>$debuglog 2>&1
 	
 }
 
