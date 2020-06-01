@@ -9,7 +9,7 @@ proto=http
 host=localhost
 ip=8989
 urlbase=/sonarr
-api=ad6b514999bc435d95c5763610b467fc
+api=your_api_key
 
 # script config
 # select where to save logs from the script for future reference. /dev/null discards logs
@@ -40,8 +40,6 @@ then
 fi
 
 
-# todo ${sonarr_series_id}
-
 main() {
 	
 	echo "running prune for ${sonarr_series_title}" | tee -a $log
@@ -50,7 +48,7 @@ main() {
 	json_sonarr_tags=$(curl -s -H "X-Api-Key: $api" $proto://$host:$ip$urlbase/api/tag | jq -r '.[] | @base64')
 	
 	# get series info
-	json_series=$(curl -s -H "X-Api-Key: $api" $proto://$host:$ip$urlbase/api/series/943)
+	json_series=$(curl -s -H "X-Api-Key: $api" $proto://$host:$ip$urlbase/api/series/${sonarr_series_id})
 	
 	# fill prune_tags array
 	get_prune_tags
@@ -92,7 +90,7 @@ main() {
 	fi
 	
 	# get episodes with a file for this series
-	json_episodes=$(curl -s -H "X-Api-Key: $api" $proto://$host:$ip$urlbase/api/episode?seriesId=943)
+	json_episodes=$(curl -s -H "X-Api-Key: $api" $proto://$host:$ip$urlbase/api/episode?seriesId=${sonarr_series_id})
 	
 	# echo "$json_episodes_with_file"
 	
