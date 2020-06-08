@@ -45,7 +45,7 @@ This tag is used by the script to determine if an episode should be unmonitored 
   - Name: anything you like
   - On Import: enable
   - All other events (grab/upgrade/rename/health): disable
-  - Tags: not required
+  - Tags: not required. (_If you want, you can tag the connection with all `prune-<x>` tags you created earlier, so it only runs for those series you really want. If the script detects that no prune tag is configured for the episode sonarr just imported, it will not do anything.)_
   - Path: browse to pp-prune.sh
 
 ## Usage
