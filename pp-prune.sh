@@ -29,7 +29,6 @@ then
 	
 fi
 
-
 if [[ "${sonarr_eventtype}" != "Download" && "${sonarr_isupgrade}" != "False" ]];
 then
 	
@@ -37,6 +36,8 @@ then
 	exit 0
 	
 fi
+
+main
 
 
 main() {
@@ -209,7 +210,6 @@ get_prune_tags() {
 	do	
 		_t() {
 			echo ${tag} | base64 --decode | jq -r ${1}
-			#echo ${tag} | jq -r ${1}
 		}
 		case "$(_t '.label')" in
 			prune-unmonitor)
@@ -275,8 +275,6 @@ get_files_to_keep() {
 
 	done
 	
-	echo "$FUNCNAME start" >>$debuglog
-	
 	# more than one prune tag is assigned to the series, can't find number of files to keep
 	if [[ $prune_tag_count != 1 ]]; then
 	
@@ -319,6 +317,3 @@ get_monitored() {
 	echo "$FUNCNAME end" >>$debuglog
 	
 }
-
-
-main
